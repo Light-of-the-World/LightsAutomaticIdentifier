@@ -30,8 +30,8 @@ public class IdentifierManager2 : MonoBehaviour
     private GUIStyle labelStyle;
     private string displayText = "";
     private Color displayColor = Color.white;
-    private bool isAttentionElite = false;
-    private bool isPerceptionElite = false;
+    private bool isLocalAttentionElite = false;
+    private bool isLocalPerceptionElite = false;
     private float eliteSearchMult = 1;
 
 
@@ -120,13 +120,13 @@ public class IdentifierManager2 : MonoBehaviour
                 float requiredTime;
                 if (distance <= 15)
                 {
-                    if (isAttentionElite) { requiredTime = 0.01f; }
-                    else if (isPerceptionElite) { requiredTime = (IdentificationDurationCombined / 2) + ((distance * IdentificationDistanceMultiplierCombined) / 12); }
+                    if (isLocalAttentionElite) { requiredTime = 0.01f; }
+                    else if (isLocalPerceptionElite) { requiredTime = (IdentificationDurationCombined / 2) + ((distance * IdentificationDistanceMultiplierCombined) / 12); }
                     else { requiredTime = (IdentificationDurationCombined / 2) + ((distance * IdentificationDistanceMultiplierCombined) / 6); }
                 }
                 else
                 {
-                    if (isPerceptionElite) { requiredTime = (IdentificationDurationCombined) + ((distance * IdentificationDistanceMultiplierCombined) / 12); }
+                    if (isLocalPerceptionElite) { requiredTime = (IdentificationDurationCombined) + ((distance * IdentificationDistanceMultiplierCombined) / 12); }
                     else { requiredTime = (IdentificationDurationCombined) + ((distance * IdentificationDistanceMultiplierCombined) / 6); }
                 }
 
@@ -192,11 +192,11 @@ public class IdentifierManager2 : MonoBehaviour
         }
     }
 
-    public void SetCombinedDistances(int attentionLevel, int perceptionLevel, int searchLevel)
+    public void SetCombinedDistances(int attentionLevel, int perceptionLevel, int searchLevel, bool isAttentionElite, bool isPerceptionElite, bool isSearchElite)
     {
-        if (attentionLevel == 51) isAttentionElite = true;
-        if (perceptionLevel == 51) isPerceptionElite = true;
-        if (searchLevel == 51) eliteSearchMult = 1.5f;
+        isLocalAttentionElite = isAttentionElite;
+        isLocalPerceptionElite = isPerceptionElite;
+        if (isSearchElite) eliteSearchMult = 1.5f;
         IdentificationDurationCombined = IdentificationDurationBase - (attentionLevel / 100f);
         IdentificationDistanceMultiplierCombined = IdentificationDistanceMultiplierBase - (perceptionLevel / 750);
         IdentificationRangeCombined = IdentificationRangeBase + (searchLevel * 2);

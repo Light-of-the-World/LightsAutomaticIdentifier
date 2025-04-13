@@ -25,8 +25,11 @@ namespace LightsAutomaticIdentifier.Patches
             int attentionLevel = player.Skills.Attention.Level;
             int perceptionLevel = player.Skills.Perception.Level;
             int searchLevel = player.Skills.Search.Level;
+            bool isAttentionElite = player.Skills.Attention.IsEliteLevel;
+            bool isPerceptionElite = player.Skills.Perception.IsEliteLevel;
+            bool isSearchElite = player.Skills.Search.IsEliteLevel;
             Plugin.Log.LogInfo($"Attention level was listed as {attentionLevel}, Perception level was listed as {perceptionLevel}, and Search level was listed as {searchLevel}. Adjusting identification times accordingly.");
-            manager.SetCombinedDistances( attentionLevel, perceptionLevel, searchLevel );
+            manager.SetCombinedDistances( attentionLevel, perceptionLevel, searchLevel, isAttentionElite, isPerceptionElite, isSearchElite );
         }
     }
 }
