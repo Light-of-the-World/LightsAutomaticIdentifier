@@ -19,8 +19,14 @@ namespace LightsAutomaticIdentifier.Patches
         [PatchPrefix]
         public static void PatchPrefix()
         {
-            Plugin.Log.LogInfo("Match started, Identifier is attatching to the player.");
-            Singleton<GameWorld>.Instance.MainPlayer.GetOrAddComponent<IdentifierManager2>();
+            Plugin.Log.LogInfo("Match started, Identifier is attatching to the player. We are additionally gathering current Attention and Perception levels.");
+            Player player = Singleton<GameWorld>.Instance.MainPlayer;
+            IdentifierManager2 manager = player.GetOrAddComponent<IdentifierManager2>();
+            int attentionLevel = player.Skills.Attention.Level;
+            int perceptionLevel = player.Skills.Perception.Level;
+            int searchLevel = player.Skills.Search.Level;
+            Plugin.Log.LogInfo($"Attention level was listed as {attentionLevel}, Perception level was listed as {perceptionLevel}, and Search level was listed as {searchLevel}. Adjusting identification times accordingly.");
+            manager.SetCombinedDistances( attentionLevel, perceptionLevel, searchLevel );
         }
     }
 }
