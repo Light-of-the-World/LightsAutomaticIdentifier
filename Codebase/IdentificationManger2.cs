@@ -33,6 +33,7 @@ public class IdentifierManager2 : MonoBehaviour
     private bool isLocalAttentionElite = false;
     private bool isLocalPerceptionElite = false;
     private float eliteSearchMult = 1;
+    public static bool isRaidOver;
 
 
     private void Awake()
@@ -122,7 +123,7 @@ public class IdentifierManager2 : MonoBehaviour
                 {
                     if (isLocalAttentionElite) { requiredTime = 0.01f; }
                     else if (isLocalPerceptionElite) { requiredTime = (IdentificationDurationCombined / 2) + ((distance * IdentificationDistanceMultiplierCombined) / 12); }
-                    else { requiredTime = (IdentificationDurationCombined / 2) + ((distance * IdentificationDistanceMultiplierCombined) / 6); }
+                    else { requiredTime = (IdentificationDurationCombined + ((distance * IdentificationDistanceMultiplierCombined) / 6)) /2; }
                 }
                 else
                 {

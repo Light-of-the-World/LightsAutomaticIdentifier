@@ -26,6 +26,7 @@ namespace LightsAutomaticIdentiier
             // save the Logger to variable so we can use it elsewhere in the project
             Log = Logger;
             new MatchStartedPatch().Enable();
+            new MatchEndedPatch().Enable();
             Log.LogWarning("Identifer Loaded");
             //Don't forget to enable patches here!
         }
